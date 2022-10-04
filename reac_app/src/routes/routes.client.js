@@ -1,6 +1,6 @@
 import {AdminLayout, ClientLayout} from "../Layouts"
 import {Home} from "../pages/Client";
-import {Error404} from  "../pages"
+
 
 const routesClient = [
     {
@@ -9,5 +9,6 @@ const routesClient = [
         component: Home,
         exact: true
     },
+    
 ];
 export default routesClient;
