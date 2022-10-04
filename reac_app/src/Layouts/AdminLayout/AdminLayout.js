@@ -1,11 +1,11 @@
-import React, { Children } from 'react'
+import React from 'react'
 import "./AdminLayout.scss"
 
-export  function AdminLayout(props) {
+export function AdminLayout(props) {
     const {children} = props;
   return (
     <div>
-        <p>AdminLayout</p>
+      <p>AdminLayout</p>
       {children}
     </div>
   )
