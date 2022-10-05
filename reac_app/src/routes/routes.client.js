@@ -1,4 +1,4 @@
-import {AdminLayout, ClientLayout} from "../Layouts"
+import { ClientLayout} from "../Layouts"
 import {Home} from "../pages/Client";
 
 
