@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Form} from "semantic-ui-react"
 import {useFormik} from "formik"
 import * as Yup from "yup"
+import {loginApi} from "../../../api/user"
 import "./LoginForm.scss"
 
 export function LoginForm() {
@@ -9,9 +10,15 @@ export function LoginForm() {
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     validateOnChange: false,
-    onSubmit:(formValue)=>{
-      console.log('Email enviado');
-      console.log(formValue);
+    onSubmit: async (formValue)=>{
+      try {
+        const response = await loginApi(formValue);
+        const {access} = response;
+        console.log(access);
+      } catch (error) {
+        console.log('ERROR');
+        console.log(error);
+      }
     }
   })
   return (
