@@ -8,7 +8,8 @@ import {useAuth} from "../../../hooks"
 import "./LoginForm.scss"
 
 export function LoginForm() {
-  console.log(useAuth());
+  const {login} = useAuth();
+  //console.log(useAuth());
   const fromik =useFormik ({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
@@ -17,7 +18,8 @@ export function LoginForm() {
       try {
         const response = await loginApi(formValue);
         const {access} = response;
-        console.log(access);
+        login(access)
+        //console.log(access);
       } catch (error) {
        
         toast.error(error.message);
