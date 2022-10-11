@@ -1,5 +1,5 @@
 import React ,{useState, useEffect, createContext} from "react";
-import {setToken} from "../api/token";
+import {setToken,getToken} from "../api/token";
 import {useUser} from "../hooks"
 
 export const AuthContext = createContext({
@@ -14,6 +14,18 @@ export function AuthProvaider(props){
     const [auth, setAuth] = useState(undefined);
     const {getME} = useUser();
 
+    useEffect(() => {
+        (async () => {
+            const token = getToken();
+            if(token){
+                const me = await getME(token)
+                setAuth({token, me});
+            }else{
+                setAuth(null)
+            }
+        })()
+    },[])
+
     const login = async (token) => {
         setToken(token)
         //console.log('Context login ------>', token);
@@ -27,6 +39,8 @@ export function AuthProvaider(props){
         login,
         logout: () => console.log('Cerrando session'),
     }
+
+    if(auth === undefined) return null;
 
 
     return (
