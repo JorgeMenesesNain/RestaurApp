@@ -40,8 +40,9 @@ function MenuLeft(props){
             <Menu.Item as={Link} to={'/admin/products'} active={pathname === "/admin/products"}>
                 <Icon name='cart' />Productos
             </Menu.Item>
-            {/* ----------------------------Usuarios---------------------------- */}
+            {/* ----------------------------Solo los Staff pueden ver los---------------------------- */}
             {auth.me?.is_staff &&(
+                /* ----------------------------Usuarios---------------------------- */
                 <Menu.Item as={Link} to={'/admin/users'} active={pathname === "/admin/users"}>
                     <Icon name='users' />Usuarios
                 </Menu.Item>
