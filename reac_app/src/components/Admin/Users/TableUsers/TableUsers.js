@@ -26,12 +26,40 @@ export function TableUsers(props) {
             <Table.Cell>{user.email}</Table.Cell>
             <Table.Cell>{user.first_name}</Table.Cell>
             <Table.Cell>{user.last_name}</Table.Cell>
-            <Table.Cell> 0 - Active </Table.Cell>
-            <Table.Cell> 0 - Staff </Table.Cell>
-            <Table.Cell> 0 - Action </Table.Cell>
+            <Table.Cell className="status">
+              {user.is_active ? <Icon name="check" /> : <Icon name="close" />}
+            </Table.Cell>
+            <Table.Cell className="status">
+              {user.is_staff ? <Icon name="check" /> : <Icon name="close" />}
+            </Table.Cell>
+
+            <Actions user={user} />
           </Table.Row>
         ))}
       </Table.Body>
     </Table>
+  );
+}
+
+/* funcion para el aprtado para modificar o eliminar usuario */
+function Actions(props) {
+  const { user } = props;
+  return (
+    <Table.Cell textAlign="right">
+      {/* boton para modificacion de usuario */}
+      <Button icon onClick={() => console.log(`editar usuario ${user.email}`)}>
+        {/*  icono de lapiz  */}
+        <Icon name="pencil" />
+      </Button>
+      {/* boton para eliminacion de usuario */}
+      <Button
+        icon
+        negative
+        onClick={() => console.log(`Eliminar usuario ${user.email}`)}
+      >
+        {/* icono de basurero */}
+        <Icon name="trash" />
+      </Button>
+    </Table.Cell>
   );
 }

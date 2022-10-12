@@ -1,2 +1,16 @@
 .table-users-admin {
+  td {
+    /* los td que tengan status  */
+    &.status {
+      .icon {
+        /* los iconos close y check seran de este color */
+        &.close {
+          color: #f00;
+        }
+        &.check {
+          color: #00b100;
+        }
+      }
+    }
+  }
 }
