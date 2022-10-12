@@ -5,7 +5,7 @@ import "./TopMenu.scss"
 
 export function TopMenu() {
     const {auth, logout} = useAuth();
-    console.log(auth);
+    
 
     const renderName = () => {
         if (auth.me?.first_name && auth.me?.last_name) {
