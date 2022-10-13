@@ -1,4 +1,10 @@
-import { getMeApi, getUsersApi, addUserApi, updateUserApi } from "../api/user";
+import {
+  getMeApi,
+  getUsersApi,
+  addUserApi,
+  updateUserApi,
+  deleteUserApi,
+} from "../api/user";
 import { useState } from "react";
 import { useAuth } from ".";
 
@@ -50,6 +56,16 @@ export function useUser() {
     }
   };
 
+  const deleteUser = async (id) => {
+    try {
+      setLoading(true);
+      await deleteUserApi(id, auth.token);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+  };
   return {
     loading,
     error,
@@ -58,5 +74,6 @@ export function useUser() {
     getUsers,
     addUser,
     updateUser,
+    deleteUser,
   };
 }

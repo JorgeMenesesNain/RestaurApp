@@ -14,7 +14,7 @@ export function UsersAdmin() {
   const [contentModal, setContentModal] = useState(null);
   const [refetch, setRefetch] = useState(false);
 
-  const { loading, users, getUsers } = useUser();
+  const { loading, users, getUsers, deleteUser } = useUser();
 
   useEffect(() => {
     getUsers();
@@ -48,8 +48,13 @@ export function UsersAdmin() {
   const onDeleteUser = async (data) => {
     const result = window.confirm(`¿Eliminar usuario ${data.email}?`);
 
-    if (result) {
-      console.log("usuario eliminado");
+    try {
+      if (result) {
+        await deleteUser(data.id);
+        onRefetch();
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
