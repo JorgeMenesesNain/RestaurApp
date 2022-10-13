@@ -41,8 +41,6 @@ export function UsersAdmin() {
       />
     );
     openCloseModal();
-    /* console.log("Editar usuario ");
-    console.log(data); */
   };
 
   const onDeleteUser = async (data) => {
