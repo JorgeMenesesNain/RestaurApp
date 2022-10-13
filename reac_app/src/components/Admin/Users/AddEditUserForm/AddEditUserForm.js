@@ -7,7 +7,7 @@ import "./AddEditUserForm.scss";
 
 export function AddEditUserForm(props) {
   const { onClose, onRefetch, user } = props;
-  const { addUser } = useUser();
+  const { addUser, updateUser } = useUser();
 
   const formik = useFormik({
     initialValues: initialValues(user),
@@ -15,7 +15,7 @@ export function AddEditUserForm(props) {
     validationOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        if (user) console.log("Actualizar usuario");
+        if (user) await updateUser(user.id, formValue);
         else await addUser(formValue);
 
         onRefetch();
