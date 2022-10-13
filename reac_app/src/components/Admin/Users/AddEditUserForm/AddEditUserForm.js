@@ -5,7 +5,8 @@ import * as Yup from "yup";
 import { useUser } from "../../../../hooks";
 import "./AddEditUserForm.scss";
 
-export function AddEditUserForm() {
+export function AddEditUserForm(props) {
+  const { onClose, onRefetch } = props;
   const { addUser } = useUser();
   const formik = useFormik({
     initialValues: initialValues(),
@@ -14,7 +15,8 @@ export function AddEditUserForm() {
     onSubmit: async (formValue) => {
       try {
         await addUser(formValue);
-        console.log("usuario creado correctamente");
+        onRefetch();
+        onClose();
       } catch (error) {
         console.error(error);
       }
