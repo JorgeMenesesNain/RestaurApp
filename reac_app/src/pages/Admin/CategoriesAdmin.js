@@ -1,9 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Loader } from "semantic-ui-react";
-import { HeaderPage, TableCategoryAdmin } from "../../components/Admin";
+import {
+  HeaderPage,
+  TableCategoryAdmin,
+  AddEditCategoryForm,
+} from "../../components/Admin";
+import { ModalBasic } from "../../components/Common";
 import { useCategory } from "../../hooks";
 
 export function CategoriesAdmin() {
+  const [showModal, setShowModal] = useState(false);
+  const [titleModal, setTitleModal] = useState(null);
+  const [contentModal, setContentModal] = useState(null);
+  const [refetch, setRefetch] = useState(false);
   const { loading, categories, getCategories } = useCategory();
   console.log(categories);
 
@@ -11,9 +20,24 @@ export function CategoriesAdmin() {
     getCategories();
   }, []);
 
+  const openCloseModal = () => setShowModal((prev) => !prev);
+
+  const addCategory = () => {
+    setTitleModal("Nuevo categoria");
+    setContentModal(
+      <AddEditCategoryForm /* onClose={openCloseModal} onRefetch={onRefetch}  */
+      />
+    );
+    openCloseModal();
+  };
+
   return (
     <>
-      <HeaderPage title="Categorias" btnTitle="Nueva categoria" />
+      <HeaderPage
+        title="Categorias"
+        btnTitle="Nueva categoria"
+        btnClick={addCategory}
+      />
       {loading ? (
         <Loader active inline="centered">
           Cargando ...
@@ -21,6 +45,12 @@ export function CategoriesAdmin() {
       ) : (
         <TableCategoryAdmin categories={categories} />
       )}
+      <ModalBasic
+        show={showModal}
+        onClose={openCloseModal}
+        title={titleModal}
+        children={contentModal}
+      />
     </>
   );
 }
