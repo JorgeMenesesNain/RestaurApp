@@ -14,7 +14,7 @@ export function CategoriesAdmin() {
   const [contentModal, setContentModal] = useState(null);
   const [refetch, setRefetch] = useState(false);
   const { loading, categories, getCategories } = useCategory();
-  console.log(categories);
+  /* console.log(categories); */
 
   useEffect(() => {
     getCategories();
