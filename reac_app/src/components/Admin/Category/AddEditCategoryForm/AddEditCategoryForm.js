@@ -7,17 +7,19 @@ import { useCategory } from "../../../../hooks";
 import "./AddEditCategoryForm.scss";
 
 export function AddEditCategoryForm(props) {
-  const { onClose, onRefetch } = props;
-  const [previewImage, setPreviewImage] = useState(null);
-  const { addCategory } = useCategory();
+  const { onClose, onRefetch, category } = props;
+  const [previewImage, setPreviewImage] = useState(category?.image || null);
+  const { addCategory /* , updateCategory */ } = useCategory();
 
   const formik = useFormik({
-    initialValues: initialValues(),
-    validationSchema: Yup.object(newSchema()),
+    initialValues: initialValues(category),
+    validationSchema: Yup.object(category ? updateSchema() : newSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        await addCategory(formValue);
+        if (category) console.log("Actualizar CATEGORIA");
+        else await addCategory(formValue);
+
         onRefetch();
         onClose();
       } catch (error) {
@@ -44,7 +46,7 @@ export function AddEditCategoryForm(props) {
       <Form.Input
         name="title"
         placeholder="Nombre de la categoria"
-        value={formik.values.titleo}
+        value={formik.values.title}
         onChange={formik.handleChange}
         error={formik.errors.title}
       />
@@ -55,19 +57,24 @@ export function AddEditCategoryForm(props) {
         color={formik.errors.image && "red"}
         {...getRootProps()}
       >
-        Subir imagen
+        {previewImage ? "Cambiar imagen" : "Subir imagen"}
       </Button>
       <input {...getInputProps()} />
       <Image src={previewImage} fluid />
 
-      <Button type="submit" primary fluid content="Crear" />
+      <Button
+        type="submit"
+        primary
+        fluid
+        content={category ? "Actualizar" : "Crear"}
+      />
     </Form>
   );
 }
 
-function initialValues() {
+function initialValues(data) {
   return {
-    title: "",
+    title: data?.title || "hola",
     image: "",
   };
 }
@@ -76,5 +83,12 @@ function newSchema() {
   return {
     title: Yup.string().required(true),
     image: Yup.string().required(true),
+  };
+}
+
+function updateSchema() {
+  return {
+    title: Yup.string().required(true),
+    image: Yup.string(),
   };
 }
