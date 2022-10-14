@@ -4,7 +4,7 @@ import { map } from "lodash";
 import "./TableCategoryAdmin.scss";
 
 export function TableCategoryAdmin(props) {
-  const { categories, updateCategory } = props;
+  const { categories, updateCategory, deleteCategory } = props;
   return (
     <Table className="table-category-admin">
       <Table.Header>
@@ -26,7 +26,7 @@ export function TableCategoryAdmin(props) {
             <Actions
               category={category}
               updateCategory={updateCategory}
-              /*deleteCategory={deleteCategory} */
+              deleteCategory={deleteCategory}
             />
           </Table.Row>
         ))}
@@ -35,20 +35,14 @@ export function TableCategoryAdmin(props) {
   );
 }
 function Actions(props) {
-  const { category, updateCategory /*, deleteCategory  */ } = props;
+  const { category, updateCategory, deleteCategory } = props;
 
   return (
     <Table.Cell textAlign="right">
       <Button icon onClick={() => updateCategory(category)}>
         <Icon name="pencil" />
       </Button>
-      <Button
-        icon
-        negative
-        onClick={() =>
-          console.log("eliminar categoria")
-        } /* onClick={() => deleteCategory(category)} */
-      >
+      <Button icon negative onClick={() => deleteCategory(category)}>
         <Icon name="trash" />
       </Button>
     </Table.Cell>
