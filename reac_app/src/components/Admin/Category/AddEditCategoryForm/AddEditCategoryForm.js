@@ -74,7 +74,7 @@ export function AddEditCategoryForm(props) {
 
 function initialValues(data) {
   return {
-    title: data?.title || "hola",
+    title: data?.title || "",
     image: "",
   };
 }
