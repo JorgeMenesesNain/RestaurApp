@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Loader } from "semantic-ui-react";
-import { HeaderPage } from "../../components/Admin";
+import { HeaderPage, TableProductAdmin } from "../../components/Admin";
 import { useProduct } from "../../hooks";
 
 export function ProductAdmin() {
@@ -20,7 +20,7 @@ export function ProductAdmin() {
           Cargando...
         </Loader>
       ) : (
-        <p>Products Taable</p>
+        <TableProductAdmin products={products} />
       )}
     </>
   );

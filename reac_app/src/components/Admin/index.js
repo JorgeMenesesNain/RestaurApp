@@ -5,3 +5,4 @@ export * from "./HeaderPage";
 
 export * from "./Users"; /* recoje todos los componentes que estan en la carpeta users */
 export * from "./Category"; /* recoje todos los componentes que estan en la carpeta Category */
+export * from "./Product"; /* recoje todos los componentes que estan en la carpeta Product */
