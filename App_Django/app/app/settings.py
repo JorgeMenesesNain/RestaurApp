@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django_filters',
     'user',
     'categories',
-    'products'
+    'products',
+    'tables',
 
 ]
 
