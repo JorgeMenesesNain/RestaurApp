@@ -14,7 +14,7 @@ export function TablesAdmin() {
   const [titleModal, setTitleModal] = useState(null);
   const [contentModal, setContentModal] = useState(null);
   const [refetch, setRefetch] = useState(false);
-  const { loading, tables, getTables } = useTable();
+  const { loading, tables, getTables, deleteTable } = useTable();
 
   useEffect(() => {
     getTables();
@@ -43,6 +43,14 @@ export function TablesAdmin() {
     openCloseModal();
   };
 
+  const onDeleteTable = async (data) => {
+    const result = window.confirm(`¿Eliminar mesa ${data.number}?`);
+    if (result) {
+      await deleteTable(data.id);
+      onRefetch();
+    }
+  };
+
   return (
     <>
       <HeaderPage
@@ -56,7 +64,11 @@ export function TablesAdmin() {
           Cargando...
         </Loader>
       ) : (
-        <TableTablesAdmin tables={tables} updateTable={updateTable} />
+        <TableTablesAdmin
+          tables={tables}
+          updateTable={updateTable}
+          deleteTable={onDeleteTable}
+        />
       )}
 
       <ModalBasic
