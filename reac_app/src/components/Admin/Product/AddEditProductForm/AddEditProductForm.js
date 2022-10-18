@@ -10,11 +10,32 @@ import "./AddEditProductForm.scss";
 /* add-edit-product-form
  */
 export function AddEditProductForm() {
+  const [categoriesFormat, setCategoriesFormat] = useState([]);
+  /*  const [previewImage, setPreviewImage] = useState(null); */
+
+  const { categories, getCategories } = useCategory();
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    setCategoriesFormat(formatDropdownData(categories));
+  }, [categories]);
+
   return (
     <Form className="add-edit-product-form">
       <Form.Input name="title" placeholder="Nombre del producto" />
       <Form.Input type="number" name="price" placeholder="precio" />
-      <Dropdown placeholder="Categoria" fluid selection search />
+
+      <Dropdown
+        placeholder="Categoria"
+        fluid
+        selection
+        search
+        options={categoriesFormat}
+      />
+
       <div className="add-edit-product-form__active">
         <Checkbox toggle />
         Producto activo
@@ -26,4 +47,12 @@ export function AddEditProductForm() {
       <Button type="submit" primary fluid content="Crear" />
     </Form>
   );
+}
+
+function formatDropdownData(data) {
+  return map(data, (item) => ({
+    key: item.id,
+    text: item.title,
+    value: item.id,
+  }));
 }
