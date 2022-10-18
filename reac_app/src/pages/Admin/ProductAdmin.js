@@ -17,16 +17,15 @@ export function ProductAdmin() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [refetch]);
 
   const openCloseModal = () => setShowModal((prev) => !prev);
+  const onRefetch = () => setRefetch((prev) => !prev);
 
   const addProduct = () => {
     setTitleModal("Nuevo Producto");
     setContentModal(
-      <AddEditProductForm
-        onClose={openCloseModal} /* onRefetch={onRefetch} */
-      />
+      <AddEditProductForm onClose={openCloseModal} onRefetch={onRefetch} />
     );
     openCloseModal();
   };

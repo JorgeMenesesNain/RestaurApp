@@ -7,19 +7,22 @@ import * as Yup from "yup";
 import { useCategory, useProduct } from "../../../../hooks";
 import "./AddEditProductForm.scss";
 
-export function AddEditProductForm() {
+export function AddEditProductForm(props) {
+  const { onClose, onRefetch } = props;
   const [categoriesFormat, setCategoriesFormat] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
-
   const { categories, getCategories } = useCategory();
+  const { addProduct } = useProduct();
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(newSchema()),
-    validationOnChange: false,
-    onSubmit: (formValue) => {
-      console.log("Formulario enviado");
-      console.log(formValue);
+    validateOnChange: false,
+    onSubmit: async (formValue) => {
+      await addProduct(formValue);
+
+      onRefetch();
+      onClose();
     },
   });
 
