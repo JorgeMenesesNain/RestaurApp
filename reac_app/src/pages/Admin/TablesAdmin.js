@@ -31,6 +31,18 @@ export function TablesAdmin() {
     openCloseModal();
   };
 
+  const updateTable = (data) => {
+    setTitleModal("Actualizar mesa");
+    setContentModal(
+      <AddEditTableForm
+        onClose={openCloseModal}
+        onRefetch={onRefetch}
+        table={data}
+      />
+    );
+    openCloseModal();
+  };
+
   return (
     <>
       <HeaderPage
@@ -44,7 +56,7 @@ export function TablesAdmin() {
           Cargando...
         </Loader>
       ) : (
-        <TableTablesAdmin tables={tables} />
+        <TableTablesAdmin tables={tables} updateTable={updateTable} />
       )}
 
       <ModalBasic
