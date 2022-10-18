@@ -3,6 +3,8 @@ import {
   getProductsApi,
   addProductApi,
   updateProductApi,
+  deleteCategoryApi,
+  deleteProductApi,
 } from "../api/product";
 import { useAuth } from "./";
 
@@ -46,6 +48,17 @@ export function useProduct() {
     }
   };
 
+  const deleteProduct = async (id) => {
+    try {
+      setLoading(true);
+      await deleteProductApi(id, auth.token);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+  };
+
   return {
     loading,
     error,
@@ -53,5 +66,6 @@ export function useProduct() {
     getProducts,
     addProduct,
     updateProduct,
+    deleteProduct,
   };
 }
