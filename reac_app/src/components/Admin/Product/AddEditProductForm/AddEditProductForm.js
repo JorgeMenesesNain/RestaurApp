@@ -12,14 +12,14 @@ export function AddEditProductForm(props) {
   const [categoriesFormat, setCategoriesFormat] = useState([]);
   const [previewImage, setPreviewImage] = useState(product?.image || null);
   const { categories, getCategories } = useCategory();
-  const { addProduct } = useProduct();
+  const { addProduct, updateProduct } = useProduct();
 
   const formik = useFormik({
     initialValues: initialValues(product),
     validationSchema: Yup.object(product ? updateSchema() : newSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      if (product) console.log("update ...");
+      if (product) await updateProduct(product.id, formValue);
       else await addProduct(formValue);
 
       onRefetch();
