@@ -11,7 +11,7 @@ import "./AddEditProductForm.scss";
  */
 export function AddEditProductForm() {
   const [categoriesFormat, setCategoriesFormat] = useState([]);
-  /*  const [previewImage, setPreviewImage] = useState(null); */
+  const [previewImage, setPreviewImage] = useState(null);
 
   const { categories, getCategories } = useCategory();
 
@@ -22,6 +22,18 @@ export function AddEditProductForm() {
   useEffect(() => {
     setCategoriesFormat(formatDropdownData(categories));
   }, [categories]);
+
+  const onDrop = useCallback(async (acceptedFile) => {
+    const file = acceptedFile[0];
+    setPreviewImage(URL.createObjectURL(file));
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/jpeg, image/png",
+    noKeyboard: true,
+    multiple: false,
+    onDrop,
+  });
 
   return (
     <Form className="add-edit-product-form">
@@ -40,9 +52,11 @@ export function AddEditProductForm() {
         <Checkbox toggle />
         Producto activo
       </div>
-      <Button type="button" fluid>
+      <Button type="button" fluid {...getRootProps()}>
         Subir imagen
       </Button>
+      <input {...getInputProps()} />
+      <Image src={previewImage} />
 
       <Button type="submit" primary fluid content="Crear" />
     </Form>
