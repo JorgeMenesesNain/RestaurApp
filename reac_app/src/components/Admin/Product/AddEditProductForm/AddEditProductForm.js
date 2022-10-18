@@ -8,18 +8,19 @@ import { useCategory, useProduct } from "../../../../hooks";
 import "./AddEditProductForm.scss";
 
 export function AddEditProductForm(props) {
-  const { onClose, onRefetch } = props;
+  const { onClose, onRefetch, product } = props;
   const [categoriesFormat, setCategoriesFormat] = useState([]);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(product?.image || null);
   const { categories, getCategories } = useCategory();
   const { addProduct } = useProduct();
 
   const formik = useFormik({
-    initialValues: initialValues(),
-    validationSchema: Yup.object(newSchema()),
+    initialValues: initialValues(product),
+    validationSchema: Yup.object(product ? updateSchema() : newSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      await addProduct(formValue);
+      if (product) console.log("update ...");
+      else await addProduct(formValue);
 
       onRefetch();
       onClose();
@@ -94,7 +95,12 @@ export function AddEditProductForm(props) {
       <input {...getInputProps()} />
       <Image src={previewImage} />
 
-      <Button type="submit" primary fluid content="Crear" />
+      <Button
+        type="submit"
+        primary
+        fluid
+        content={product ? "Actualizar" : "Crear"}
+      />
     </Form>
   );
 }
@@ -107,12 +113,12 @@ function formatDropdownData(data) {
   }));
 }
 
-function initialValues() {
+function initialValues(data) {
   return {
-    title: "",
-    price: "",
-    category: "",
-    active: false,
+    title: data?.title || "",
+    price: data?.price || "",
+    category: data?.category || "",
+    active: data?.active ? true : false,
     image: "",
   };
 }
@@ -124,5 +130,15 @@ function newSchema() {
     category: Yup.number().required(true),
     active: Yup.bool().required(true),
     image: Yup.string().required(true),
+  };
+}
+
+function updateSchema() {
+  return {
+    title: Yup.string().required(true),
+    price: Yup.number().required(true),
+    category: Yup.number().required(true),
+    active: Yup.bool().required(true),
+    image: Yup.string(),
   };
 }

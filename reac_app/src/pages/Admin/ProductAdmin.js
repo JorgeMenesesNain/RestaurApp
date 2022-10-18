@@ -30,6 +30,18 @@ export function ProductAdmin() {
     openCloseModal();
   };
 
+  const updateProduct = (data) => {
+    setTitleModal("Actualizar producto");
+    setContentModal(
+      <AddEditProductForm
+        onClose={openCloseModal}
+        onRefetch={onRefetch}
+        product={data}
+      />
+    );
+    openCloseModal();
+  };
+
   return (
     <>
       <HeaderPage
@@ -42,7 +54,7 @@ export function ProductAdmin() {
           Cargando...
         </Loader>
       ) : (
-        <TableProductAdmin products={products} />
+        <TableProductAdmin products={products} updateProduct={updateProduct} />
       )}
 
       <ModalBasic
