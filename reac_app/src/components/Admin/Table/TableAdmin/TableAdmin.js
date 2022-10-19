@@ -10,6 +10,7 @@ import "./TableAdmin.scss";
 export function TableAdmin(props) {
   const { table } = props;
   const [orders, setOrders] = useState([]);
+  const [tableBusy, setTableBusy] = useState(false);
 
   useEffect(
     () => {
@@ -25,6 +26,16 @@ export function TableAdmin(props) {
       /* reload */
     ]
   );
+  useEffect(() => {
+    (async () => {
+      const response = await getOrdersByTableApi(
+        table.id,
+        ORDER_STATUS.DELIVERED
+      );
+      if (size(response) > 0) setTableBusy(response);
+      else setTableBusy(false);
+    })();
+  }, []);
 
   return (
     <div className="table-admin">
@@ -36,6 +47,7 @@ export function TableAdmin(props) {
       <IcTable
         className={classNames({
           pending: size(orders) > 0,
+          busy: tableBusy,
         })}
       />
       <p>Mesa {table.number} </p>
