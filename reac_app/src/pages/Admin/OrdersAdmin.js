@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Loader } from "semantic-ui-react";
-import { HeaderPage } from "../../components/Admin";
+import { HeaderPage, TablesListAdmin } from "../../components/Admin";
 import { useTable } from "../../hooks";
 
 export function OrdersAdmin() {
@@ -18,9 +18,8 @@ export function OrdersAdmin() {
           Cargando...
         </Loader>
       ) : (
-        <h2>Lista de mesas</h2>
+        <TablesListAdmin tables={tables} />
       )}
-      {/* <TablesListAdmin tables={tables} /> */}
     </>
   );
 }
