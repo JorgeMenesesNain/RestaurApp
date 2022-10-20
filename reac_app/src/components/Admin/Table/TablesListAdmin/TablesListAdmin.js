@@ -7,8 +7,29 @@ import "./TablesListAdmin.scss";
 export function TablesListAdmin(props) {
   const { tables } = props;
   const [reload, setReload] = useState(false);
+  const [autoReload, setAutoReload] = useState(false);
 
   const onReload = () => setReload((prev) => !prev);
+
+  useEffect(() => {
+    if (autoReload) {
+      const autoReloadAction = () => {
+        onReload();
+        setTimeout(() => {
+          autoReloadAction();
+        }, 5000);
+      };
+      autoReloadAction();
+    }
+  }, [autoReload]);
+
+  const onCheckAutoReload = (check) => {
+    if (check) {
+      setAutoReload(check);
+    } else {
+      window.location.reload();
+    }
+  };
 
   return (
     <div className="tables-list-admin">
@@ -23,11 +44,15 @@ export function TablesListAdmin(props) {
 
       <div className="tables-list-admin__reaload-toggle">
         <span>Relaod automatico</span>
-        <Checkbox toggle onChange={(_, data) => console.log(data.checked)} />
+        <Checkbox
+          toggle
+          checked={autoReload}
+          onChange={(_, data) => onCheckAutoReload(data.checked)}
+        />
       </div>
 
       {map(tables, (table) => (
-        <TableAdmin key={table.number} table={table} />
+        <TableAdmin key={table.number} table={table} reload={reload} />
       ))}
     </div>
   );
