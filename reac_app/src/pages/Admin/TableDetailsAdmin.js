@@ -10,7 +10,7 @@ import { useOrder, useTable, usePayment } from "../../hooks";
 export function TableDetailsAdmin() {
   const [reloadOrders, setReloadOrders] = useState(false);
   const { id } = useParams();
-  const { loading, orders, getOrdersByTable } = useOrder();
+  const { loading, orders, getOrdersByTable, addPaymentToOrder } = useOrder();
   const { table, getTable } = useTable();
   const { createPayment } = usePayment();
 
@@ -50,7 +50,12 @@ export function TableDetailsAdmin() {
       };
 
       const payment = await createPayment(paymentData);
-      console.log(payment);
+
+      for await (const order of orders) {
+        await addPaymentToOrder(order.id, payment.id);
+      }
+
+      onReloadOrders();
     }
   };
 
