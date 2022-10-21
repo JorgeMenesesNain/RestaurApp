@@ -7,3 +7,4 @@ export * from "./Users"; /* recoje todos los componentes que estan en la carpeta
 export * from "./Category"; /* recoje todos los componentes que estan en la carpeta Category */
 export * from "./Product"; /* recoje todos los componentes que estan en la carpeta Product */
 export * from "./Table"; /* recoje todos los componentes que estan en la carpeta Table */
+export * from "./TableDetails"; /* recoje todos los componentes que estan en la carpeta TableDetails */
