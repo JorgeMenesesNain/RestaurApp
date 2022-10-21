@@ -19,12 +19,12 @@ export function PaymentDetail(props) {
     if (result) {
       await closePayment(payment.id);
 
-      /* for await (const order of orders) {
+      for await (const order of orders) {
         await closeOrder(order.id);
-      } */
+      }
 
-      /* onReloadOrders();
-      openCloseModal(); */
+      onReloadOrders();
+      openCloseModal();
     }
   };
 
