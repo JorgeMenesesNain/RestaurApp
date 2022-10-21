@@ -4,7 +4,10 @@ import { useParams } from "react-router-dom";
 import { forEach, size } from "lodash";
 import { HeaderPage, AddOrderForm } from "../../components/Admin";
 import { ModalBasic } from "../../components/Common";
-import { ListOrderAdmin } from "../../components/Admin/TableDetails";
+import {
+  ListOrderAdmin,
+  PaymentDetail,
+} from "../../components/Admin/TableDetails";
 import { useOrder, useTable, usePayment } from "../../hooks";
 
 export function TableDetailsAdmin() {
@@ -90,7 +93,12 @@ export function TableDetailsAdmin() {
         title="Generar pedido"
       >
         {paymentData ? (
-          <h2>Detalles de la cuenat</h2>
+          <PaymentDetail
+            payment={paymentData}
+            orders={orders}
+            openCloseModal={openCloseModal}
+            onReloadOrders={onReloadOrders}
+          />
         ) : (
           <AddOrderForm
             idTable={id}
