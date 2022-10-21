@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Loader } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
+import { forEach } from "lodash";
 import { HeaderPage, AddOrderForm } from "../../components/Admin";
 import { ModalBasic } from "../../components/Common";
 import { ListOrderAdmin } from "../../components/Admin/TableDetails";
@@ -31,7 +32,22 @@ export function TableDetailsAdmin() {
     );
 
     if (result) {
-      console.log("Si generar cuenta");
+      let totalPayment = 0;
+      forEach(orders, (order) => {
+        totalPayment += Number(order.product_data.price);
+      });
+
+      const resultTypePayment = window.confirm(
+        "¿Pago con tarjeta pusa ACEPTAR con efectivo pusa CANCELAR"
+      );
+
+      const paymentData = {
+        table: id,
+        totalPayment: totalPayment,
+        paymentType: resultTypePayment ? "CARD" : "CASH",
+        statusPayment: "PENDING",
+      };
+      console.log(paymentData);
     }
   };
 
