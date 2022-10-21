@@ -8,3 +8,4 @@ export * from "./Category"; /* recoje todos los componentes que estan en la carp
 export * from "./Product"; /* recoje todos los componentes que estan en la carpeta Product */
 export * from "./Table"; /* recoje todos los componentes que estan en la carpeta Table */
 export * from "./TableDetails"; /* recoje todos los componentes que estan en la carpeta TableDetails */
+export * from "./Orders"; /* recoje todos los componentes que estan en la carpeta Orders */
