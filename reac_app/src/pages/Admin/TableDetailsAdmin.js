@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Loader } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
-import { forEach } from "lodash";
+import { forEach, size } from "lodash";
 import { HeaderPage, AddOrderForm } from "../../components/Admin";
 import { ModalBasic } from "../../components/Common";
 import { ListOrderAdmin } from "../../components/Admin/TableDetails";
@@ -9,10 +9,11 @@ import { useOrder, useTable, usePayment } from "../../hooks";
 
 export function TableDetailsAdmin() {
   const [reloadOrders, setReloadOrders] = useState(false);
+  const [paymentData, setPaymentData] = useState(null);
   const { id } = useParams();
   const { loading, orders, getOrdersByTable, addPaymentToOrder } = useOrder();
   const { table, getTable } = useTable();
-  const { createPayment } = usePayment();
+  const { createPayment, getPaymentByTable } = usePayment();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -23,6 +24,13 @@ export function TableDetailsAdmin() {
   useEffect(() => {
     getTable(id);
   }, [id]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getPaymentByTable(id);
+      if (size(response) > 0) setPaymentData(response[0]);
+    })();
+  }, [reloadOrders]);
 
   const onReloadOrders = () => setReloadOrders((prev) => !prev);
   const openCloseModal = () => setShowModal((prev) => !prev);
@@ -63,9 +71,9 @@ export function TableDetailsAdmin() {
     <>
       <HeaderPage
         title={`Mesa ${table?.number || ""}`}
-        btnTitle="Añadir pedidos"
+        btnTitle={paymentData ? "Ver cuenta" : "Añadir pedido"}
         btnClick={openCloseModal}
-        btnTitleTwo="Generar Cuenta"
+        btnTitleTwo={!paymentData ? "Generar Cuenta" : null}
         btnClickTwo={onCreatePayment}
       />
       {loading ? (
@@ -81,11 +89,15 @@ export function TableDetailsAdmin() {
         onClose={openCloseModal}
         title="Generar pedido"
       >
-        <AddOrderForm
-          idTable={id}
-          openCloseModal={openCloseModal}
-          onReloadOrders={onReloadOrders}
-        />
+        {paymentData ? (
+          <h2>Detalles de la cuenat</h2>
+        ) : (
+          <AddOrderForm
+            idTable={id}
+            openCloseModal={openCloseModal}
+            onReloadOrders={onReloadOrders}
+          />
+        )}
       </ModalBasic>
     </>
   );
