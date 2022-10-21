@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Form, Image, Button, Dropdown } from "semantic-ui-react";
 import { map } from "lodash";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useProduct, useOrder } from "../../../../hooks";
 import "./AddOrderForm.scss";
 
@@ -16,14 +18,31 @@ export function AddOrderForm(props) {
     setProductsFormat(formatDropdownData(products));
   }, [products]);
 
+  const formik = useFormik({
+    initialValues: initialValues(),
+    validationSchema: Yup.object(validationSchema()),
+    validateOnChange: false,
+    onSubmit: async (formValue) => {
+      console.log("Creando pediddos");
+      console.log(formValue);
+    },
+  });
+
   return (
-    <Form className="add-order-form">
+    <Form className="add-order-form" onSubmit={formik.handleSubmit}>
       <Dropdown
         placeholder="Productos"
         fluid
         selection
         search
         options={productsFormat}
+        value={null}
+        onChange={(_, data) =>
+          formik.setFieldValue("products", [
+            ...formik.values.products,
+            data.value,
+          ])
+        }
       />
       <div className="add-order-form__list">
         {/* for de prtoductos seleccionado */}
@@ -45,4 +64,16 @@ function formatDropdownData(data) {
     text: item.title,
     value: item.id,
   }));
+}
+
+function initialValues() {
+  return {
+    products: [],
+  };
+}
+
+function validationSchema() {
+  return {
+    products: Yup.array().required(true),
+  };
 }
