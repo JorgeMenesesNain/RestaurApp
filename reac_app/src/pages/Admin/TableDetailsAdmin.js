@@ -5,13 +5,14 @@ import { forEach } from "lodash";
 import { HeaderPage, AddOrderForm } from "../../components/Admin";
 import { ModalBasic } from "../../components/Common";
 import { ListOrderAdmin } from "../../components/Admin/TableDetails";
-import { useOrder, useTable } from "../../hooks";
+import { useOrder, useTable, usePayment } from "../../hooks";
 
 export function TableDetailsAdmin() {
   const [reloadOrders, setReloadOrders] = useState(false);
   const { id } = useParams();
   const { loading, orders, getOrdersByTable } = useOrder();
   const { table, getTable } = useTable();
+  const { createPayment } = usePayment();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -47,7 +48,9 @@ export function TableDetailsAdmin() {
         paymentType: resultTypePayment ? "CARD" : "CASH",
         statusPayment: "PENDING",
       };
-      console.log(paymentData);
+
+      const payment = await createPayment(paymentData);
+      console.log(payment);
     }
   };
 
