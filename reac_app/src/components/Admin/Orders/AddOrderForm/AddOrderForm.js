@@ -48,6 +48,12 @@ export function AddOrderForm(props) {
     }
   };
 
+  const removeProductList = (index) => {
+    const idProducts = [...formik.values.products];
+    idProducts.splice(index, 1);
+    formik.setFieldValue("products", idProducts);
+  };
+
   return (
     <Form className="add-order-form" onSubmit={formik.handleSubmit}>
       <Dropdown
@@ -71,7 +77,13 @@ export function AddOrderForm(props) {
               <Image src={product.image} avatar size="tiny" />
               <span>{product.title}</span>
             </div>
-            <Button type="button" content="Eliminar" basic color="red" />
+            <Button
+              type="button"
+              content="Eliminar"
+              basic
+              color="red"
+              onClick={() => removeProductList(index)}
+            />
           </div>
         ))}
       </div>
