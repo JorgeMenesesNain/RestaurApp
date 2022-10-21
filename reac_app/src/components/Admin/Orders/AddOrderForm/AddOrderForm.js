@@ -7,10 +7,11 @@ import { useProduct, useOrder } from "../../../../hooks";
 import "./AddOrderForm.scss";
 
 export function AddOrderForm(props) {
-  const { idTable, openCloseModal } = props;
+  const { idTable, openCloseModal, onReloadOrders } = props;
   const [productsFormat, setProductsFormat] = useState([]);
   const [productsData, setProductsData] = useState([]);
   const { products, getProducts, getProductById } = useProduct();
+  const { addOrderToTable } = useOrder();
 
   useEffect(() => {
     getProducts();
@@ -24,8 +25,12 @@ export function AddOrderForm(props) {
     validationSchema: Yup.object(validationSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      console.log("Creando pediddos");
-      console.log(formValue);
+      for await (const idProduct of formValue.products) {
+        await addOrderToTable(idTable, idProduct);
+      }
+
+      onReloadOrders();
+      openCloseModal();
     },
   });
 

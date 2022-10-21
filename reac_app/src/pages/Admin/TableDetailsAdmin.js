@@ -45,7 +45,11 @@ export function TableDetailsAdmin() {
         onClose={openCloseModal}
         title="Generar pedido"
       >
-        <AddOrderForm idTable={id} openCloseModal={openCloseModal} />
+        <AddOrderForm
+          idTable={id}
+          openCloseModal={openCloseModal}
+          onReloadOrders={onReloadOrders}
+        />
       </ModalBasic>
     </>
   );
