@@ -16,6 +16,7 @@ export function AddOrderForm(props) {
   useEffect(() => {
     getProducts();
   }, []);
+
   useEffect(() => {
     setProductsFormat(formatDropdownData(products));
   }, [products]);

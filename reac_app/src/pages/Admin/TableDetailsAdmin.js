@@ -25,12 +25,24 @@ export function TableDetailsAdmin() {
   const onReloadOrders = () => setReloadOrders((prev) => !prev);
   const openCloseModal = () => setShowModal((prev) => !prev);
 
+  const onCreatePayment = async () => {
+    const result = window.confirm(
+      "¿Estas seguro de generar la cuenta de la mesa?"
+    );
+
+    if (result) {
+      console.log("Si generar cuenta");
+    }
+  };
+
   return (
     <>
       <HeaderPage
         title={`Mesa ${table?.number || ""}`}
         btnTitle="Añadir pedidos"
         btnClick={openCloseModal}
+        btnTitleTwo="Generar Cuenta"
+        btnClickTwo={onCreatePayment}
       />
       {loading ? (
         <Loader active inline="centered">
