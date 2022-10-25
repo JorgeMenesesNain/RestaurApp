@@ -2,5 +2,7 @@ super user django
 jo.menesesn@duocuc.cl
 admin
 
+user
+
 
 .\envs\app\Scripts\activate
