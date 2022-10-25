@@ -17,8 +17,16 @@ export function PaymentProductList(props) {
   }, []);
 
   return (
-    <div>
-      <h2>PaymentProductList</h2>
+    <div className="payment-product-list">
+      {map(orders, (order) => (
+        <div className="payment-product-list__product" key={order.id}>
+          <div>
+            <Image src={order.product_data.image} avatar size="tiny" />
+            <span>{order.product_data.title}</span>
+          </div>
+          <span>${order.product_data.price}</span>
+        </div>
+      ))}
     </div>
   );
 }
