@@ -10,8 +10,6 @@ export function PaymentsHistory() {
     getPayments();
   }, []);
 
-  console.log(payments);
-
   return (
     <>
       <HeaderPage title="Hitorial de pagos" />
