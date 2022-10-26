@@ -34,9 +34,9 @@ export function ClientLayout(props) {
         <div className="client-layout__header">
           <Link to={`/client/${tableNumber}`}>
             <h1>Siglo XXI</h1>
-
-            <span>Mesa {tableNumber}</span>
           </Link>
+          <span>Mesa {tableNumber}</span>
+
           <div>
             <Button icon onClick={goToCart}>
               <Icon name="shop" />
