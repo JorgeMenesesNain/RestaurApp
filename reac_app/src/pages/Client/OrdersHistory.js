@@ -9,6 +9,7 @@ import { Button } from "semantic-ui-react";
 export function OrdersHistory() {
   const [idTable, setIdTable] = useState(null);
   const [showTypePayment, setShowTypePayment] = useState(false);
+  const [isRequestAccount, setIsRequestAccount] = useState(false);
   const { loading, orders, getOrdersByTable, addPaymentToOrder } = useOrder();
   const { getTableByNumber } = useTable();
   const { tableNumber } = useParams();
@@ -23,6 +24,15 @@ export function OrdersHistory() {
       setIdTable(idTableTemp);
     })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (idTable) {
+        const response = await getPaymentByTable(idTable);
+        setIsRequestAccount(response);
+      }
+    })();
+  }, [idTable]);
 
   const onCreatePayment = async (paymentType) => {
     setShowTypePayment(false);
@@ -55,8 +65,16 @@ export function OrdersHistory() {
       ) : (
         <>
           {size(orders) > 0 && (
-            <Button primary fluid onClick={() => setShowTypePayment(true)}>
-              Pedir la cuenta
+            <Button
+              primary
+              fluid
+              onClick={() =>
+                size(isRequestAccount) === 0 && setShowTypePayment(true)
+              }
+            >
+              {size(isRequestAccount) > 0
+                ? "La cuenta ya esta pedida"
+                : "Pedir la cuenta"}
             </Button>
           )}
           {map(orders, (order) => (
