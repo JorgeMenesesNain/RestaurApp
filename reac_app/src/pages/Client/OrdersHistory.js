@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { map, size, forEach } from "lodash";
 import { useOrder, useTable, usePayment } from "../../hooks";
+import { OrderHistoryItem } from "../../components/Client";
 
 export function OrdersHistory() {
   const { loading, orders, getOrdersByTable, addPaymentToOrder } = useOrder();
@@ -21,6 +23,16 @@ export function OrdersHistory() {
   return (
     <div>
       <h1>Historial de pedidos</h1>
+
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+        <>
+          {map(orders, (order) => (
+            <OrderHistoryItem key={order.id} order={order} />
+          ))}
+        </>
+      )}
     </div>
   );
 }
