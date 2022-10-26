@@ -7,10 +7,12 @@ import { ModalConfirm } from "../../components/Common";
 import { Button } from "semantic-ui-react";
 
 export function OrdersHistory() {
+  const [idTable, setIdTable] = useState(null);
   const [showTypePayment, setShowTypePayment] = useState(false);
   const { loading, orders, getOrdersByTable, addPaymentToOrder } = useOrder();
   const { getTableByNumber } = useTable();
   const { tableNumber } = useParams();
+  const { createPayment, getPaymentByTable } = usePayment();
 
   useEffect(() => {
     (async () => {
@@ -18,8 +20,31 @@ export function OrdersHistory() {
       const idTableTemp = table[0].id;
 
       getOrdersByTable(idTableTemp, "", "ordering=-status,-created_at");
+      setIdTable(idTableTemp);
     })();
   }, []);
+
+  const onCreatePayment = async (paymentType) => {
+    setShowTypePayment(false);
+
+    let totalPayment = 0;
+    forEach(orders, (order) => {
+      totalPayment += Number(order.product_data.price);
+    });
+
+    const paymentData = {
+      table: idTable,
+      totalPayment: totalPayment,
+      paymentType,
+      statusPayment: "PENDING",
+    };
+
+    const payment = await createPayment(paymentData);
+    for await (const order of orders) {
+      await addPaymentToOrder(order.id, payment.id);
+    }
+    window.location.reload();
+  };
 
   return (
     <div>
@@ -44,9 +69,9 @@ export function OrdersHistory() {
         title="Pagar con tarjeta o efectivo"
         show={showTypePayment}
         onCloseText="Efectivo"
-        onClose={() => console.log("Pagar efectivo")}
+        onClose={() => onCreatePayment("CASH")}
         onConfirmText="Tarjeta"
-        onConfirm={() => console.log("Pagar tarjeta")}
+        onConfirm={() => onCreatePayment("CARD")}
       />
     </div>
   );
