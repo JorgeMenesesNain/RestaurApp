@@ -5,5 +5,6 @@ admin
 user
 
 admin@example.com
+admin
 
 .\envs\app\Scripts\activate

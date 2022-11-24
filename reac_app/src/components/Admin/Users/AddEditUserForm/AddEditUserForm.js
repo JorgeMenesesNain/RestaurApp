@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Checkbox } from "semantic-ui-react";
+import { Form, Button, Checkbox, Dropdown } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useUser } from "../../../../hooks";
@@ -8,6 +8,13 @@ import "./AddEditUserForm.scss";
 export function AddEditUserForm(props) {
   const { onClose, onRefetch, user } = props;
   const { addUser, updateUser } = useUser();
+
+  const options = [
+    { key: "ADMIN", text: "Admin", value: "ADMIN" },
+    { key: "BODEGA", text: "Bodega", value: "BODEGA" },
+    { key: "FINANZAS", text: "Finanzas", value: "FINANZAS" },
+    { key: "COCINA", text: "Cocina", value: "COCINA" },
+  ];
 
   const formik = useFormik({
     initialValues: initialValues(user),
@@ -63,6 +70,16 @@ export function AddEditUserForm(props) {
         onChange={formik.handleChange}
         error={formik.errors.password}
       />
+      <Dropdown
+        placeholder="Rol"
+        fluid
+        selection
+        search
+        options={options}
+        value={formik.values.rol}
+        error={formik.errors.rol}
+        onChange={(_, data) => formik.setFieldValue("rol", data.value)}
+      />
 
       <div className="add-edit-user-form__active">
         <Checkbox
@@ -84,6 +101,17 @@ export function AddEditUserForm(props) {
         Usuario staff
       </div>
 
+      <div className="add-edit-user-form__superuser">
+        <Checkbox
+          toggle
+          checked={formik.values.is_superuser}
+          onChange={(_, data) =>
+            formik.setFieldValue("is_superuser", data.checked)
+          }
+        />
+        Super Usuario
+      </div>
+
       <Button
         type="submit"
         primary
@@ -103,6 +131,8 @@ function initialValues(data) {
     password: "",
     is_active: data?.is_active ? true : false,
     is_staff: data?.is_staff ? true : false,
+    is_superuser: data?.is_superuser ? true : false,
+    rol: data?.rol || "",
   };
 }
 function newSchema() {
@@ -114,6 +144,8 @@ function newSchema() {
     password: Yup.string().required(true),
     is_active: Yup.bool().required(true),
     is_staff: Yup.bool().required(true),
+    is_superuser: Yup.bool().required(true),
+    rol: Yup.string().required(true),
   };
 }
 function updateSchema() {
@@ -125,5 +157,7 @@ function updateSchema() {
     password: Yup.string(),
     is_active: Yup.bool().required(true),
     is_staff: Yup.bool().required(true),
+    is_superuser: Yup.bool().required(true),
+    rol: Yup.string(),
   };
 }

@@ -1,5 +1,6 @@
 .add-edit-user-form {
   &__active,
+  &__superuser,
   &__staff {
     display: flex;
     align-items: center;

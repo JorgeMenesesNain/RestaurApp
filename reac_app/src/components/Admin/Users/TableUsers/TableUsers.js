@@ -15,6 +15,8 @@ export function TableUsers(props) {
           <Table.HeaderCell>Apellidos</Table.HeaderCell>
           <Table.HeaderCell>Activo</Table.HeaderCell>
           <Table.HeaderCell>Staff</Table.HeaderCell>
+          <Table.HeaderCell>Super usuario</Table.HeaderCell>
+          <Table.HeaderCell>Rol</Table.HeaderCell>
           <Table.HeaderCell></Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -22,15 +24,32 @@ export function TableUsers(props) {
       <Table.Body>
         {map(users, (user, index) => (
           <Table.Row key={index}>
-            <Table.Cell>{user.username}</Table.Cell>
+            <Table.Cell className="table-users-admin__text">
+              {user.username}
+            </Table.Cell>
             <Table.Cell>{user.email}</Table.Cell>
-            <Table.Cell>{user.first_name}</Table.Cell>
-            <Table.Cell>{user.last_name}</Table.Cell>
+            <Table.Cell className="table-users-admin__text">
+              {user.first_name}
+            </Table.Cell>
+            <Table.Cell className="table-users-admin__text">
+              {user.last_name}
+            </Table.Cell>
             <Table.Cell className="status">
               {user.is_active ? <Icon name="check" /> : <Icon name="close" />}
             </Table.Cell>
             <Table.Cell className="status">
               {user.is_staff ? <Icon name="check" /> : <Icon name="close" />}
+            </Table.Cell>
+            <Table.Cell className="status">
+              {user.is_superuser ? (
+                <Icon name="check" />
+              ) : (
+                <Icon name="close" />
+              )}
+            </Table.Cell>
+
+            <Table.Cell className="table-users-admin__text">
+              {user.rol}
             </Table.Cell>
 
             <Actions

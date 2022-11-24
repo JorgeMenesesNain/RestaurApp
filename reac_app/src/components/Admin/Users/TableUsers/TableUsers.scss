@@ -1,4 +1,10 @@
 .table-users-admin {
+  &__text {
+    text-transform: lowercase;
+  }
+  &__text::first-letter {
+    text-transform: uppercase;
+  }
   td {
     /* los td que tengan status  */
     &.status {
