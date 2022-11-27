@@ -1,0 +1,8 @@
+.insumos-users-admin {
+  &__text {
+    text-transform: lowercase;
+  }
+  &__text::first-letter {
+    text-transform: uppercase;
+  }
+}

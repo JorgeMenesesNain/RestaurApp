@@ -6,7 +6,7 @@ import "./TableInsumoAdmin.scss";
 export function TableInsumoAdmin(props) {
   const { insumos } = props;
   return (
-    <Table className="table-tables-admin">
+    <Table className="insumos-users-admin">
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Nombre</Table.HeaderCell>
@@ -18,8 +18,10 @@ export function TableInsumoAdmin(props) {
       <Table.Body>
         {map(insumos, (insumos, index) => (
           <Table.Row key={index}>
-            <Table.Cell>{insumos.nombre}</Table.Cell>
-            <Table.Cell>{`${insumos.cantidad}   ${insumos.medida}`}</Table.Cell>
+            <Table.Cell className="insumos-users-admin__text">
+              {insumos.nombre}
+            </Table.Cell>
+            <Table.Cell className="insumos-users-admin__text">{`${insumos.cantidad}   ${insumos.medida}`}</Table.Cell>
             <Actions insumos={insumos} />
           </Table.Row>
         ))}
