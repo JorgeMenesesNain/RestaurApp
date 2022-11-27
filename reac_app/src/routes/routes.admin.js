@@ -7,6 +7,7 @@ import {
   TablesAdmin,
   TableDetailsAdmin,
   PaymentsHistory,
+  BodegaAdmin,
 } from "../pages/Admin";
 
 const routesAdmin = [
@@ -50,6 +51,12 @@ const routesAdmin = [
     path: "/admin/payments-history",
     layout: AdminLayout,
     component: PaymentsHistory,
+    exact: true,
+  },
+  {
+    path: "/admin/bodega/",
+    layout: AdminLayout,
+    component: BodegaAdmin,
     exact: true,
   },
 ];

@@ -1,0 +1,44 @@
+import React from "react";
+import { Table, Button, Icon } from "semantic-ui-react";
+import { map } from "lodash";
+import "./TableInsumoAdmin.scss";
+
+export function TableInsumoAdmin(props) {
+  const { insumos } = props;
+  return (
+    <Table className="table-tables-admin">
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Nombre</Table.HeaderCell>
+          <Table.HeaderCell>Cantidad</Table.HeaderCell>
+          <Table.HeaderCell></Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+
+      <Table.Body>
+        {map(insumos, (insumos, index) => (
+          <Table.Row key={index}>
+            <Table.Cell>{insumos.nombre}</Table.Cell>
+            <Table.Cell>{`${insumos.cantidad}   ${insumos.medida}`}</Table.Cell>
+            <Actions insumos={insumos} />
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  );
+
+  function Actions(props) {
+    const { insumos } = props;
+
+    return (
+      <Table.Cell textAlign="right">
+        <Button icon onClick={() => console.log("Editar")}>
+          <Icon name="pencil" />
+        </Button>
+        <Button icon negative onClick={() => console.log("Borrar")}>
+          <Icon name="trash" />
+        </Button>
+      </Table.Cell>
+    );
+  }
+}
