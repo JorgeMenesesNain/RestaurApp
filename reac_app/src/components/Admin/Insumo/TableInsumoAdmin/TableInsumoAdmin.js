@@ -4,7 +4,7 @@ import { map } from "lodash";
 import "./TableInsumoAdmin.scss";
 
 export function TableInsumoAdmin(props) {
-  const { insumos, updateInsumo } = props;
+  const { insumos, updateInsumo, deleteInsumo } = props;
   return (
     <Table className="insumos-users-admin">
       <Table.Header>
@@ -22,7 +22,11 @@ export function TableInsumoAdmin(props) {
               {insumos.nombre}
             </Table.Cell>
             <Table.Cell className="insumos-users-admin__text">{`${insumos.cantidad}   ${insumos.medida}`}</Table.Cell>
-            <Actions insumos={insumos} updateInsumo={updateInsumo} />
+            <Actions
+              insumos={insumos}
+              updateInsumo={updateInsumo}
+              deleteInsumo={deleteInsumo}
+            />
           </Table.Row>
         ))}
       </Table.Body>
@@ -37,7 +41,7 @@ export function TableInsumoAdmin(props) {
         <Button icon onClick={() => updateInsumo(insumos)}>
           <Icon name="pencil" />
         </Button>
-        <Button icon negative onClick={() => console.log("Borrar")}>
+        <Button icon negative onClick={() => deleteInsumo(insumos)}>
           <Icon name="trash" />
         </Button>
       </Table.Cell>

@@ -48,3 +48,21 @@ export async function updateInsumoApi(id, data, token) {
     throw error;
   }
 }
+
+export async function deleteInsumoApi(id, token) {
+  try {
+    const url = `${BASE_API}/api/insumos/${id}/`;
+    const params = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await fetch(url, params);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}

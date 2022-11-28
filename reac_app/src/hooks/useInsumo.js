@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { size } from "lodash";
-import { getInsumoApi, addInsumoApi, updateInsumoApi } from "../api/insumo";
+import {
+  getInsumoApi,
+  addInsumoApi,
+  updateInsumoApi,
+  deleteInsumoApi,
+} from "../api/insumo";
 import { useAuth } from "./useAuth";
 
 export function useInsumo() {
@@ -42,6 +47,17 @@ export function useInsumo() {
     }
   };
 
+  const deleteInsumo = async (id) => {
+    try {
+      setLoading(true);
+      await deleteInsumoApi(id, auth.token);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+  };
+
   return {
     loading,
     error,
@@ -49,5 +65,6 @@ export function useInsumo() {
     getInsumos,
     addInsumo,
     updateInsumo,
+    deleteInsumo,
   };
 }

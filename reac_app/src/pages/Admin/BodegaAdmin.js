@@ -13,7 +13,7 @@ export function BodegaAdmin() {
   const [titleModal, setTitleModal] = useState(null);
   const [contentModal, setContentModal] = useState(null);
   const [refetch, setRefetch] = useState(false);
-  const { loading, insumos, getInsumos } = useInsumo();
+  const { loading, insumos, getInsumos, deleteInsumo } = useInsumo();
 
   useEffect(() => {
     getInsumos();
@@ -30,7 +30,7 @@ export function BodegaAdmin() {
     );
     openCloseModal();
   };
-
+  /*Editar  insumo*/
   const updateInsumo = (data) => {
     setTitleModal("Actualizar Insumo");
     setContentModal(
@@ -41,6 +41,14 @@ export function BodegaAdmin() {
       />
     );
     openCloseModal();
+  };
+
+  const onDeleteInsumo = async (data) => {
+    const result = window.confirm(`¿Eliminar Insumo ${data.number}?`);
+    if (result) {
+      await deleteInsumo(data.id);
+      onRefetch();
+    }
   };
 
   return (
@@ -55,7 +63,11 @@ export function BodegaAdmin() {
           Cargando...
         </Loader>
       ) : (
-        <TableInsumoAdmin insumos={insumos} updateInsumo={updateInsumo} />
+        <TableInsumoAdmin
+          insumos={insumos}
+          updateInsumo={updateInsumo}
+          deleteInsumo={onDeleteInsumo}
+        />
       )}
       <ModalBasic
         show={showModal}
