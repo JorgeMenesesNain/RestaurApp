@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { size } from "lodash";
-import { getInsumoApi } from "../api/insumo";
+import { getInsumoApi, addInsumoApi, updateInsumoApi } from "../api/insumo";
 import { useAuth } from "./useAuth";
 
 export function useInsumo() {
@@ -21,11 +21,33 @@ export function useInsumo() {
       setError(error);
     }
   };
+  const addInsumo = async (data) => {
+    try {
+      setLoading(true);
+      await addInsumoApi(data, auth.token);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+  };
+  const updateInsumo = async (id, data) => {
+    try {
+      setLoading(true);
+      await updateInsumoApi(id, data, auth.token);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+  };
 
   return {
     loading,
     error,
     insumos,
     getInsumos,
+    addInsumo,
+    updateInsumo,
   };
 }
