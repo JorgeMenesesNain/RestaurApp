@@ -10,3 +10,8 @@ export const PAYMENT_STATUS = {
   PENDING: "PENDING",
   PAID: "PAID",
 };
+
+export const PREPARACION_STATUS = {
+  PREPARANDO: "PREPARANDO",
+  LISTO: "LISTO",
+};

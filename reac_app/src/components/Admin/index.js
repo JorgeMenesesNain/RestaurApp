@@ -11,3 +11,4 @@ export * from "./TableDetails"; /* recoje todos los componentes que estan en la 
 export * from "./Orders"; /* recoje todos los componentes que estan en la carpeta Orders */
 export * from "./Payments"; /* recoje todos los componentes que estan en la carpeta Payments */
 export * from "./Insumo"; /* recoje todos los componentes que estan en la carpeta Insumo */
+export * from "./Cocina"; /* recoje todos los componentes que estan en la carpeta Cocina */

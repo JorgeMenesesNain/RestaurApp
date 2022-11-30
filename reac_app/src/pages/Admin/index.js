@@ -7,3 +7,4 @@ export * from "./TablesAdmin";
 export * from "./TableDetailsAdmin";
 export * from "./PaymentsHistory";
 export * from "./BodegaAdmin";
+export * from "./Cocinaadmin";

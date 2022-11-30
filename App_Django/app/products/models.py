@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.fields.files import ImageField
 
 
+
+
 class Product(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='products')

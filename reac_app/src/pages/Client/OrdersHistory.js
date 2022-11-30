@@ -20,7 +20,7 @@ export function OrdersHistory() {
       const table = await getTableByNumber(tableNumber);
       const idTableTemp = table[0].id;
 
-      getOrdersByTable(idTableTemp, "", "ordering=-status,-created_at");
+      getOrdersByTable(idTableTemp, "", "", "ordering=-status,-created_at");
       setIdTable(idTableTemp);
     })();
   }, []);

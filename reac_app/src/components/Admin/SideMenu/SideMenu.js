@@ -65,6 +65,15 @@ function MenuLeft(props) {
           <Icon name="cart" />
           Productos
         </Menu.Item>
+        {/* ----------------------------cocina---------------------------- */}
+        <Menu.Item
+          as={Link}
+          to={"/admin/cocina"}
+          active={pathname === "/admin/cocina"}
+        >
+          <Icon name="fire" />
+          Cocina
+        </Menu.Item>
         {/* ----------------------------Bodega---------------------------- */}
         <Menu.Item
           as={Link}
@@ -119,6 +128,14 @@ function MenuLeft(props) {
         >
           <Icon name="cart" />
           Productos
+        </Menu.Item>
+        <Menu.Item
+          as={Link}
+          to={"/admin/cocina"}
+          active={pathname === "/admin/cocina"}
+        >
+          <Icon name="fire" />
+          Cocina
         </Menu.Item>
       </Menu>
     );

@@ -6,6 +6,7 @@ import {
   addPaymentToOrderApi,
   closeOrderApi,
   getOrdersByPaymentApi,
+  checkPreparacionOrderApi,
 } from "../api/orders";
 
 export function useOrder() {
@@ -13,10 +14,15 @@ export function useOrder() {
   const [error, setError] = useState(false);
   const [orders, setOrders] = useState(null);
 
-  const getOrdersByTable = async (idTable, status, ordering) => {
+  const getOrdersByTable = async (idTable, status, preparacion, ordering) => {
     try {
       setLoading(true);
-      const response = await getOrdersByTableApi(idTable, status, ordering);
+      const response = await getOrdersByTableApi(
+        idTable,
+        status,
+        preparacion,
+        ordering
+      );
       setLoading(false);
       setOrders(response);
     } catch (error) {
@@ -64,6 +70,13 @@ export function useOrder() {
       setError(error);
     }
   };
+  const checkPreparacionOrder = async (idOrder) => {
+    try {
+      await checkPreparacionOrderApi(idOrder);
+    } catch (error) {
+      setError(error);
+    }
+  };
 
   return {
     loading,
@@ -75,5 +88,6 @@ export function useOrder() {
     addPaymentToOrder,
     closeOrder,
     getOrdersByPayment,
+    checkPreparacionOrder,
   };
 }

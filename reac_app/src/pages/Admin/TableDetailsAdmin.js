@@ -21,7 +21,7 @@ export function TableDetailsAdmin() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    getOrdersByTable(id, "", "ordering=-status,created_at");
+    getOrdersByTable(id, "", "", "ordering=-status,created_at");
   }, [id, reloadOrders]);
 
   useEffect(() => {

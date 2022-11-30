@@ -8,6 +8,7 @@ import {
   TableDetailsAdmin,
   PaymentsHistory,
   BodegaAdmin,
+  Cocinaadmin,
 } from "../pages/Admin";
 
 const routesAdmin = [
@@ -57,6 +58,12 @@ const routesAdmin = [
     path: "/admin/bodega/",
     layout: AdminLayout,
     component: BodegaAdmin,
+    exact: true,
+  },
+  {
+    path: "/admin/cocina/",
+    layout: AdminLayout,
+    component: Cocinaadmin,
     exact: true,
   },
 ];
