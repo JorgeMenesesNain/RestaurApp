@@ -154,4 +154,14 @@ function MenuLeft(props) {
       </Menu>
     );
   }
+  if (auth.me?.rol === "GARZON") {
+    return (
+      <Menu fixed="left" borderless className="side" vertical>
+        <Menu.Item as={Link} to={"/admin"} active={pathname === "/admin"}>
+          <Icon name="home" />
+          Pedidos
+        </Menu.Item>
+      </Menu>
+    );
+  }
 }

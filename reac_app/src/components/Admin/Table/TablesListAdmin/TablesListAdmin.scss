@@ -3,7 +3,7 @@
   flex-wrap: wrap;
 
   &__reaload {
-    margin: 0;
+    margin: 20;
     position: absolute;
     top: 30px;
     right: 70px;
@@ -13,6 +13,7 @@
     position: absolute !important;
     top: 38px;
     right: 150px;
+
     display: flex;
     align-items: center;
 

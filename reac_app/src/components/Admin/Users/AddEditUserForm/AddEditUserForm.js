@@ -14,6 +14,7 @@ export function AddEditUserForm(props) {
     { key: "BODEGA", text: "Bodega", value: "BODEGA" },
     { key: "FINANZAS", text: "Finanzas", value: "FINANZAS" },
     { key: "COCINA", text: "Cocina", value: "COCINA" },
+    { key: "GARZON", text: "Garzon", value: "GARZON" },
   ];
 
   const formik = useFormik({

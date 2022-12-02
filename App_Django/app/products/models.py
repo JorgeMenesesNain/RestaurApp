@@ -9,6 +9,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products')
     price = models.DecimalField(max_digits=6, decimal_places=0)
     active = models.BooleanField(default=False)
+    receta = models.TextField(default="")
     category = models.ForeignKey(
         'categories.Category', on_delete=models.SET_NULL, null=True, blank=True)
 

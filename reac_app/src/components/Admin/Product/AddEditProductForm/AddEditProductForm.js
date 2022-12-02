@@ -64,6 +64,13 @@ export function AddEditProductForm(props) {
         onChange={formik.handleChange}
         error={formik.errors.price}
       />
+      <Form.TextArea
+        name="receta"
+        placeholder="Receta"
+        value={formik.values.receta}
+        onChange={formik.handleChange}
+        error={formik.errors.receta}
+      />
 
       <Dropdown
         placeholder="Categoria"
@@ -117,6 +124,7 @@ function initialValues(data) {
   return {
     title: data?.title || "",
     price: data?.price || "",
+    receta: data?.receta || "",
     category: data?.category || "",
     active: data?.active ? true : false,
     image: "",
@@ -127,6 +135,7 @@ function newSchema() {
   return {
     title: Yup.string().required(true),
     price: Yup.number().required(true),
+    receta: Yup.string().required(true),
     category: Yup.number().required(true),
     active: Yup.bool().required(true),
     image: Yup.string().required(true),
@@ -137,6 +146,7 @@ function updateSchema() {
   return {
     title: Yup.string().required(true),
     price: Yup.number().required(true),
+    receta: Yup.string(),
     category: Yup.number().required(true),
     active: Yup.bool().required(true),
     image: Yup.string(),

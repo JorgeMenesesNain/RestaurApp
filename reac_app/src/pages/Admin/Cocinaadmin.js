@@ -12,7 +12,6 @@ export function Cocinaadmin() {
   useEffect(() => {
     getOrdersByTable("", "", "PREPARANDO", "");
   }, [reloadOrders]);
-  console.log(orders);
 
   const onReloadOrders = () => setReloadOrders((prev) => !prev);
 

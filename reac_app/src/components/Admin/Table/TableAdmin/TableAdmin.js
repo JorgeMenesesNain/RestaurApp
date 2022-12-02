@@ -57,6 +57,7 @@ export function TableAdmin(props) {
           Cuenta
         </Label>
       )}
+
       <IcTable
         className={classNames({
           pending: size(orders) > 0,

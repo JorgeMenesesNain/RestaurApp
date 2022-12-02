@@ -7,6 +7,10 @@
   align-items: center;
   justify-content: space-between;
 
+  &.preparando {
+    background-color: rgb(255, 220, 155);
+  }
+
   &__time {
     position: absolute;
     top: -14px;

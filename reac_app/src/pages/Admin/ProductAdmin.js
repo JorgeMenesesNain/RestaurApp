@@ -18,6 +18,7 @@ export function ProductAdmin() {
   useEffect(() => {
     getProducts();
   }, [refetch]);
+  console.log(products);
 
   const openCloseModal = () => setShowModal((prev) => !prev);
   const onRefetch = () => setRefetch((prev) => !prev);

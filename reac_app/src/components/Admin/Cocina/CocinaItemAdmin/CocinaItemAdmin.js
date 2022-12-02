@@ -16,6 +16,7 @@ export function CocinaItemAdmin(props) {
     await checkPreparacionOrder(order.id);
     onReloadOrders();
   };
+
   return (
     <div
       className={classNames("cocina-item-admin", {

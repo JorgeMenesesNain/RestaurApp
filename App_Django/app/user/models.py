@@ -5,7 +5,8 @@ StatusRol = (
     ("ADMIN", "admin"),
     ("BODEGA", "bodega"),
     ("FINANZAS", "finanzas"),
-    ("COCINA", "cocina")
+    ("COCINA", "cocina"),
+    ("GARZON", "garzon"),
 )
 
 class User(AbstractUser):
