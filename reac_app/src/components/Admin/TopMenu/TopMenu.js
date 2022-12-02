@@ -19,7 +19,7 @@ export function TopMenu() {
         <p>Siglo XXI {auth.me.rol}</p>
       </Menu.Item>
 
-      <Menu.Menu position="right">
+      <Menu.Menu position="right" className="top-menu-admin__saludo">
         <Menu.Item>Hola, {renderName()}</Menu.Item>
         <Menu.Item onClick={logout}>
           <Icon name="sign-out" />

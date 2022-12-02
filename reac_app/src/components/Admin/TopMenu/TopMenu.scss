@@ -1,12 +1,13 @@
-.top-menu-admin{
+.top-menu-admin {
+  &__logo {
+    width: 250px;
+    background-color: #f6e7d8 !important;
+  }
+  &__saludo {
+    background-color: #f6e7d8 !important;
+  }
 
-
-    &__logo{
-        width: 250px;
-        background-color: #c4c4c4 !important;
-    }
-
-    i.icon{
-        margin: 0 !important;
-    }
+  i.icon {
+    margin: 0 !important;
+  }
 }
